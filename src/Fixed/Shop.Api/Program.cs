@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddDataProtection();
 builder.Services.AddDbContext<ShopDbContext>(o => o.UseSqlite("Data Source=shop-fixed.db"));
 
 var app = builder.Build();
