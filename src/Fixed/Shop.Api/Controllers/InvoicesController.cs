@@ -16,8 +16,14 @@ public class InvoicesController : ControllerBase
         var candidate = Path.GetFullPath(Path.Combine(Root, name));
         if (!candidate.StartsWith(fullRoot, StringComparison.Ordinal))
             return BadRequest("Invalid file name.");
+        // Justified suppression (teaching point): the path is sanitized above by the
+        // canonicalize-then-containment check, but the taint analyzers (CA3003 / SCS0018)
+        // don't recognize that guard as a sanitizer, so they still flag these file ops.
+        // Suppress narrowly here — with this justification — never disable the rule solution-wide.
+#pragma warning disable CA3003, SCS0018 // Path is contained within Root by the check above.
         if (!System.IO.File.Exists(candidate)) return NotFound();
         return Content(System.IO.File.ReadAllText(candidate), "text/plain");
+#pragma warning restore CA3003, SCS0018
     }
 }
 

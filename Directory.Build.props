@@ -1,0 +1,44 @@
+<Project>
+
+  <!--
+    Solution-wide security analyzers for the secure-coding course.
+
+    Severity is WARNING, not error, on purpose: this is a teaching repo whose
+    `Vulnerable` project deliberately contains exploitable code. As warnings, the
+    analyzers light up the Vulnerable project (a live demo that the tooling catches
+    each CWE) while the build still succeeds and the Fixed project stays clean.
+    See course/chapters and the coda in course/run-sheet.md.
+  -->
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <!-- Turn on the full Security rule category (incl. CA3xxx taint/data-flow rules)
+         without enabling the noisier style/quality categories. -->
+    <AnalysisModeSecurity>All</AnalysisModeSecurity>
+    <!-- Findings must never break the build in this teaching repo. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Dedicated security analyzer (SCSxxxx rules) on top of the built-in CA rules. -->
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!--
+    Transitive-vulnerability remediation. The vulnerable-package check (now wired
+    into CI and scripts/check-vulnerable-packages.sh) surfaced pre-existing High-severity
+    advisories in transitive dependencies pulled by the framework graph and the test
+    tooling. NuGet's recommended fix is a direct top-level reference pinning the patched
+    version — which is exactly the dependency hygiene this course teaches (CWE coda).
+  -->
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />                  <!-- GHSA-hh2w-p6rv-4g7w, GHSA-8g4q-xg66-9fp4 -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" /> <!-- GHSA-qj66-m88j-hmgj -->
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />                   <!-- GHSA-7jgj-8wvc-jh57 (test tooling) -->
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />    <!-- GHSA-cmhx-cq75-c4mj (test tooling) -->
+  </ItemGroup>
+
+</Project>
