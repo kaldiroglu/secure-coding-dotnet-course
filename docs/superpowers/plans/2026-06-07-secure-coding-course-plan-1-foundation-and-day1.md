@@ -421,7 +421,9 @@ namespace dev.kaldiroglu.SecureCoding.Shop.Tests;
 public class SqliTests
 {
     // Tautology injection that, if interpreted, returns ALL products regardless of the filter.
-    private const string Payload = "zzz' OR '1'='1";
+    // Must close the LIKE '%{q}%' template: the %' closes the pattern, OR 1=1 is always true,
+    // and -- comments out the trailing %' the template appends.
+    private const string Payload = "zzz%' OR 1=1 --";
 
     [Fact]
     public async Task Vulnerable_search_is_injectable()
