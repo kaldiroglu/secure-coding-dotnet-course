@@ -63,5 +63,8 @@ Follow the pattern documented in `docs/superpowers/plans/`:
 - Keep commits focused; the existing history uses conventional prefixes
   (`feat(chN):`, `docs(course):`, `fix:`, `ci:`, `build:`).
 
+## Code of conduct
+By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## Questions
 Open an issue, or contact Akin Kaldiroglu at akin@kaldiroglu.dev.
