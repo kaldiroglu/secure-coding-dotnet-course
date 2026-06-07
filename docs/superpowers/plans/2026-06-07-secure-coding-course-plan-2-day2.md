@@ -685,11 +685,12 @@ public class ImportController : ControllerBase
     }
 
     // CWE-611: XML parser with DTD processing and an external resolver enabled.
+    // NOTE: async body read — ASP.NET Core 8 disallows synchronous IO (AllowSynchronousIO=false).
     [HttpPost("xml")]
-    public IActionResult Xml()
+    public async Task<IActionResult> Xml()
     {
         using var sr = new StreamReader(Request.Body);
-        var body = sr.ReadToEnd();
+        var body = await sr.ReadToEndAsync();
         var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Parse, XmlResolver = new XmlUrlResolver() };
         using var reader = XmlReader.Create(new StringReader(body), settings);
         var doc = new XmlDocument { XmlResolver = new XmlUrlResolver() };
@@ -723,11 +724,12 @@ public class ImportController : ControllerBase
     }
 
     // FIXED: prohibit DTDs and disable the external resolver (this is also the .NET 8 default).
+    // NOTE: async body read — ASP.NET Core 8 disallows synchronous IO (AllowSynchronousIO=false).
     [HttpPost("xml")]
-    public IActionResult Xml()
+    public async Task<IActionResult> Xml()
     {
         using var sr = new StreamReader(Request.Body);
-        var body = sr.ReadToEnd();
+        var body = await sr.ReadToEndAsync();
         var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
         try
         {
@@ -920,7 +922,7 @@ public class LoggingTests
         var sink = new ListLoggerProvider();
         using var f = new VulnerableFactory();
         using var configured = f.WithWebHostBuilder(b =>
-            b.ConfigureLogging(lb => { lb.ClearProviders(); lb.AddProvider(sink); }));
+            b.ConfigureLogging(lb => { lb.ClearProviders(); lb.AddProvider(sink); lb.SetMinimumLevel(LogLevel.Information); }));
         var c = configured.CreateClient();
 
         await c.PostAsJsonAsync("/session/login", new { username = "alice", password = Password });
@@ -934,7 +936,7 @@ public class LoggingTests
         var sink = new ListLoggerProvider();
         using var f = new FixedFactory();
         using var configured = f.WithWebHostBuilder(b =>
-            b.ConfigureLogging(lb => { lb.ClearProviders(); lb.AddProvider(sink); }));
+            b.ConfigureLogging(lb => { lb.ClearProviders(); lb.AddProvider(sink); lb.SetMinimumLevel(LogLevel.Information); }));
         var c = configured.CreateClient();
 
         await c.PostAsJsonAsync("/session/login", new { username = "alice", password = Password });
