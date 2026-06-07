@@ -1,0 +1,82 @@
+name: Attendee question
+description: Ask a question about a chapter, an exploit, or a fix from the course.
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking **Secure Coding for .NET Backend Developers**! 👋
+
+        It may help to first skim the
+        [course introduction](https://github.com/kaldiroglu/secure-coding-dotnet-course/blob/main/course/introduction.md)
+        and the relevant note in
+        [course/chapters/](https://github.com/kaldiroglu/secure-coding-dotnet-course/tree/main/course/chapters).
+        For private enquiries, email Akin Kaldiroglu at akin@kaldiroglu.dev.
+  - type: dropdown
+    id: chapter
+    attributes:
+      label: Chapter / topic
+      description: Which part of the course is your question about?
+      options:
+        - General / setup
+        - "Ch1 — CWE-89 SQL injection"
+        - "Ch2 — CWE-915/20 mass assignment"
+        - "Ch3 — CWE-22 path traversal"
+        - "Ch4 — CWE-78 command injection"
+        - "Ch5 — CWE-79 output encoding"
+        - "Ch6 — CWE-639/862/863 access control"
+        - "Ch7 — CWE-327/916 crypto & hashing"
+        - "Ch8 — CWE-330/338 insecure randomness"
+        - "Ch9 — CWE-798 hardcoded secrets"
+        - "Ch10 — CWE-918 SSRF"
+        - "Ch11 — CWE-502/611 deserialization & XXE"
+        - "Ch12 — CWE-209 error exposure"
+        - "Ch13 — CWE-532 sensitive logging"
+        - "Ch14 — CWE-117 log forging (bonus)"
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What would you like to understand? Include code snippets or commands if relevant.
+      placeholder: e.g. Why does FromSqlInterpolated prevent injection but FromSqlRaw doesn't?
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What you've tried
+      description: Commands you ran, what you expected, and what actually happened. Paste any exploit/test output.
+    validations:
+      required: false
+  - type: dropdown
+    id: project
+    attributes:
+      label: Which project?
+      options:
+        - Not applicable
+        - Vulnerable
+        - Fixed
+        - Tests
+    validations:
+      required: false
+  - type: input
+    id: sdk
+    attributes:
+      label: .NET SDK version
+      description: Output of `dotnet --version` (should be 8.0.x).
+      placeholder: "8.0.403"
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I read the relevant chapter note in course/chapters/ and the introduction.
+          required: false
+        - label: I searched existing issues for the same question.
+          required: false

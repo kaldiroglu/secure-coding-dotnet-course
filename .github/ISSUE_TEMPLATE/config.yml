@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Course introduction & materials
+    url: https://github.com/kaldiroglu/secure-coding-dotnet-course/blob/main/course/introduction.md
+    about: New here? Read the course overview and how to use the materials first.
+  - name: Contributing & practice guide
+    url: https://github.com/kaldiroglu/secure-coding-dotnet-course/blob/main/CONTRIBUTING.md
+    about: How to practice in the repo and propose changes.
