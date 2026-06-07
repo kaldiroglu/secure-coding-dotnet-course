@@ -47,7 +47,8 @@ Read the `// CWE-XXX` line → fire the exploit on Vulnerable → show the Fixed
 | 15:40 | Ch 13 — CWE-532 sensitive data in logs |
 | 16:15 | Coda — analyzers + the secure-coding checklist |
 | 16:45 | Wrap-up / Q&A |
-| 17:00 | End |
+| 17:00 | Ch 14 (Bonus) — CWE-117 log forging *(optional; extends the day to 17:30)* |
+| 17:30 | End |
 
 ## Caveats to state out loud
 - **SQLite, not SQL Server.** Chosen for zero setup; lessons are provider-agnostic. The CWE-89 demo shows the `OR 1=1` tautology (SQLite blocks stacked queries) — mention that SQL Server also enables stacked-query and `xp_cmdshell` payloads.
