@@ -27,6 +27,27 @@ instructor can live-demo each weakness and its remediation as a side-by-side dif
 - EF Core 8 over SQLite; data seeded at startup.
 - xUnit + `WebApplicationFactory` exploit tests prove each fix closes the hole.
 
+## Security analyzers & CI
+Static analysis is wired in solution-wide via `Directory.Build.props`:
+- **Built-in .NET security rules** (`AnalysisModeSecurity=All`) plus **Security Code Scan**,
+  run as **warnings, not errors** — so the `Vulnerable` project builds *and* lights up with
+  findings (CA5351 MD5, CA5358 ECB, CA5394 insecure randomness, CA3006 command injection,
+  CA2326/27 deserialization, CA3003/SCS0018 path traversal, SCS0002 SQL injection, …).
+- This is a live demo: `dotnet build` surfaces ~20 security warnings, **all on `Vulnerable`**;
+  the `Fixed` project is **clean**. The one place `Fixed` needs a `#pragma warning disable`
+  (`InvoicesController`, path traversal) is a *justified, narrow* suppression — itself a
+  teaching point: the code is validated, the taint analyzer just can't see the guard.
+
+CI runs under `.github/workflows/` (active once the repo is pushed to GitHub):
+- **`codeql.yml`** — GitHub CodeQL scan for C# on push/PR + weekly.
+- **`dependency-security.yml`** — fails the build if `dotnet list package --vulnerable`
+  reports anything. Run it locally with `./scripts/check-vulnerable-packages.sh`.
+
+> Note: wiring the vulnerable-package check surfaced pre-existing High-severity advisories in
+> transitive dependencies (System.Text.Json, Caching.Memory, and old test-tooling packages).
+> They're remediated by patched top-level pins in `Directory.Build.props` — the same
+> dependency hygiene the course's Day-2 coda teaches.
+
 ## Run it with
 ```bash
 # Build everything
