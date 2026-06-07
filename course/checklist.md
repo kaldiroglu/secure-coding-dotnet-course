@@ -15,5 +15,6 @@ One line per principle. Pin it above your monitor.
 11. **Never deserialize untrusted data into arbitrary types.** Bind typed DTOs; no `TypeNameHandling`; disable DTDs (`DtdProcessing.Prohibit`).
 12. **Errors reveal nothing useful to an attacker.** Generic `ProblemDetails` to the caller; details to the log only.
 13. **Treat logs as untrusted readers — never log secrets.** No passwords, tokens, PII, or full request bodies.
+14. **(Bonus) Neutralize newlines/control chars before logging untrusted data.** Strip CR/LF so input can't forge log entries (CWE-117).
 
 *For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev*

@@ -81,3 +81,11 @@ curl -s "$F/diagnostics/run"                                       # fixed: gene
 curl -s -X POST "$V/session/login" -H 'Content-Type: application/json' -d '{"username":"alice","password":"hunter2-SECRET"}'
 # then show the password in the Vulnerable app's console log
 ```
+
+## Bonus
+**Ch14 — CWE-117 log forging** (the `\n` in the JSON value becomes a real newline)
+```bash
+curl -s -X POST "$V/audit" -H 'Content-Type: application/json' \
+  -d '{"action":"view\n2026-06-08 00:00:00 [WARN] user admin deleted all records"}'
+# Vulnerable console: the forged line appears as its own log entry. Fixed ($F): collapsed onto one line.
+```

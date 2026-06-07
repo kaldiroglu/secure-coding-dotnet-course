@@ -32,6 +32,11 @@ Each app runs on its own isolated in-memory SQLite connection per test (see
 | `ErrorExposureTests` | CWE-209 | stack trace + connstring leaked (vuln) / generic ProblemDetails (fixed) |
 | `LoggingTests` | CWE-532 | password in logs (vuln) / only username logged (fixed) |
 
+## Inventory (Bonus)
+| Test class | Weakness | Asserts |
+|------------|----------|---------|
+| `LogForgingTests` | CWE-117 | newline-forged log entry (vuln) / CR-LF neutralized (fixed) |
+
 ## Run it with
 ```bash
 dotnet test

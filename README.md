@@ -18,6 +18,7 @@ instructor can live-demo each weakness and its remediation as a side-by-side dif
 - Day-2 weaknesses: CWE-327/916 (broken crypto & password hashing), CWE-330/338
   (insecure randomness), CWE-798 (hardcoded secrets), CWE-918 (SSRF), CWE-502/611
   (unsafe deserialization & XXE), CWE-209 (error info exposure), CWE-532 (sensitive data in logs).
+- Bonus chapter: CWE-117 (log forging) — surfaced by CodeQL after publishing.
 - Each weakness is tagged in code with a `// CWE-XXX` comment.
 
 ## Architecture

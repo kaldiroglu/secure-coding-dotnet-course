@@ -86,6 +86,13 @@
 - Fix: log the username only; never the credential.
 - Principle: **Treat logs as untrusted readers — never log secrets.**
 
+## Ch14 (Bonus) — CWE-117 Log Forging
+- Bug: untrusted input logged without neutralizing newlines.
+- Exploit: `action` with an embedded `\n` forges a second, fake log entry.
+- Fix: strip `\r`/`\n` before logging (content kept, on one line).
+- Principle: **Neutralize newlines/control characters before writing untrusted data to a log.**
+- Meta: surfaced by CodeQL after publishing — a weakness the core 13 missed.
+
 ## Coda — make habits automatic
 - `dotnet list package --vulnerable` in CI.
 - Roslyn security analyzers / Security Code Scan.
