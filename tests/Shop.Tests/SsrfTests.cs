@@ -51,7 +51,18 @@ public class SsrfTests
         var port = FreePort();
         using var f = new FixedFactory();
         var c = f.CreateClient();
+        // Rejected at URL validation (loopback) before any connection, so no listener is needed.
         var resp = await c.PostAsJsonAsync("/avatar/import", new { url = $"http://127.0.0.1:{port}/" });
+        Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
+    }
+
+    [Fact]
+    public async Task Fixed_import_blocks_non_allowlisted_host()
+    {
+        using var f = new FixedFactory();
+        var c = f.CreateClient();
+        // Non-loopback but not on the allow-list -> exercises the .example.com allow-list branch.
+        var resp = await c.PostAsJsonAsync("/avatar/import", new { url = "http://evil.com/payload" });
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
 }
