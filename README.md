@@ -10,7 +10,8 @@ New to the course? Read **[course/introduction.md](course/introduction.md)** —
 scope, learning objectives, and how to use the materials. Then see the
 [instructor run sheet](course/run-sheet.md), [exploit cheat-sheet](course/cheat-sheet.md),
 [one-page checklist](course/checklist.md), [slides](course/slides.md), and the per-chapter
-speaker notes in [course/chapters/](course/chapters/).
+speaker notes in [course/chapters/](course/chapters/). Practicing or contributing?
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Purpose & expected benefits
 A teaching codebase for a 2-day, demo-heavy secure-coding course. It pairs a
