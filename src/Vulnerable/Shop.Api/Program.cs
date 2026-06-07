@@ -1,0 +1,24 @@
+using dev.kaldiroglu.SecureCoding.Shop.Vulnerable.Data;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddDbContext<ShopDbContext>(o => o.UseSqlite("Data Source=shop-vulnerable.db"));
+
+var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ShopDbContext>();
+    db.Database.EnsureCreated();
+    SeedData.Populate(db);
+}
+
+app.MapControllers();
+app.Run();
+
+namespace dev.kaldiroglu.SecureCoding.Shop.Vulnerable
+{
+    public partial class Program { }
+}

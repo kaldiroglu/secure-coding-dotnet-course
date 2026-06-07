@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{642F1202-7269-4E3A-8056-FBD2255FC6C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vulnerable", "Vulnerable", "{B2CA357B-779D-44AC-AD25-2AFB18604C7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Api", "src\Vulnerable\Shop.Api\Shop.Api.csproj", "{A1736437-DE8C-461A-AA14-EDD2402691EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1736437-DE8C-461A-AA14-EDD2402691EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1736437-DE8C-461A-AA14-EDD2402691EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1736437-DE8C-461A-AA14-EDD2402691EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1736437-DE8C-461A-AA14-EDD2402691EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B2CA357B-779D-44AC-AD25-2AFB18604C7B} = {642F1202-7269-4E3A-8056-FBD2255FC6C9}
+		{A1736437-DE8C-461A-AA14-EDD2402691EB} = {B2CA357B-779D-44AC-AD25-2AFB18604C7B}
+	EndGlobalSection
+EndGlobal
