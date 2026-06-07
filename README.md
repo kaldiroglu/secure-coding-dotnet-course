@@ -5,6 +5,13 @@ For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev
 **Project:** Secure Coding for .NET Backend Developers (course demo codebase)
 **Date:** 2026-06-07
 
+## Start here
+New to the course? Read **[course/introduction.md](course/introduction.md)** — the overview,
+scope, learning objectives, and how to use the materials. Then see the
+[instructor run sheet](course/run-sheet.md), [exploit cheat-sheet](course/cheat-sheet.md),
+[one-page checklist](course/checklist.md), [slides](course/slides.md), and the per-chapter
+speaker notes in [course/chapters/](course/chapters/).
+
 ## Purpose & expected benefits
 A teaching codebase for a 2-day, demo-heavy secure-coding course. It pairs a
 deliberately **Vulnerable** ASP.NET Core 8 Web API with a **Fixed** twin so an
@@ -63,3 +70,6 @@ dotnet run --project src/Fixed/Shop.Api
 # Run all exploit tests
 dotnet test
 ```
+
+## License
+Licensed under the [MIT License](LICENSE) © 2026 Akin Kaldiroglu.
