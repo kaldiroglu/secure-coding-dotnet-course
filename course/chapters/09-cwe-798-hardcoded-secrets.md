@@ -17,7 +17,7 @@ The partner API key is a compile-time `const` baked into the binary — anyone w
 
 ## Why it's exploitable (the mechanism)
 
-A `const` value is embedded as a literal string in the compiled IL and in the assembly's string heap; any decompiler (ILSpy, dnSpy, Avalonia Spy) or `strings` command exposes it immediately. Even in closed-source applications, compiled binaries are regularly extracted from Docker images, CI artefacts, or npm/NuGet packages. Once the key is in a git commit — even briefly, even in a private repo — it is in the repository history and may already have been cloned by automated secret-scanning bots that crawl GitHub in real time.
+A `const` value is embedded as a literal string in the compiled IL and in the assembly's string heap; any decompiler (ILSpy, dnSpy, dotPeek) or the `strings` command exposes it immediately. Even in closed-source applications, compiled binaries are regularly extracted from Docker images, CI artefacts, or npm/NuGet packages. Once the key is in a git commit — even briefly, even in a private repo — it is in the repository history and may already have been cloned by automated secret-scanning bots that crawl GitHub in real time.
 
 ## The fix (and why it's usually less code)
 

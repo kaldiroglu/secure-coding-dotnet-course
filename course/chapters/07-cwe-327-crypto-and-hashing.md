@@ -26,7 +26,7 @@ MD5 is a general-purpose hash designed to be fast; without a salt, two users wit
 
 ## The fix (and why it's usually less code)
 
-ASP.NET Core Identity's `PasswordHasher<T>` wraps PBKDF2-HMAC-SHA256 with a random 128-bit salt and 10,000 iterations (v3 format) behind a single method call — no algorithm choice, no salt generation, no iteration tuning required. The Data Protection API (`IDataProtectionProvider`) wraps authenticated encryption (AES-CBC + HMAC or AES-GCM depending on the platform) with automatic key rotation behind `Protect`/`Unprotect` — again a single-line replacement that eliminates the entire hand-rolled AES block. Both fixes are strictly less code than the vulnerable versions.
+ASP.NET Core Identity's `PasswordHasher<T>` wraps PBKDF2 with a random per-user salt and a high framework-default iteration count (raised by the .NET team over time) behind a single method call — no algorithm choice, no salt generation, no iteration tuning required. The Data Protection API (`IDataProtectionProvider`) wraps authenticated encryption (AES-CBC + HMAC or AES-GCM depending on the platform) with automatic key rotation behind `Protect`/`Unprotect` — again a single-line replacement that eliminates the entire hand-rolled AES block. Both fixes are strictly less code than the vulnerable versions.
 
 ## The transferable principle
 

