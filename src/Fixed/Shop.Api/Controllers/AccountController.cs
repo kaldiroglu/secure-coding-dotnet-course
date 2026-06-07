@@ -15,6 +15,8 @@ public class AccountController(ShopDbContext db) : ControllerBase
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterDto dto)
     {
+        // NOTE: storing the raw password here keeps this chapter focused on mass assignment.
+        // Proper password hashing (CWE-916) is the Day-2 crypto chapter.
         var user = new User { Email = dto.Email, PasswordHash = dto.Password, IsAdmin = false };
         db.Users.Add(user);
         db.SaveChanges();
