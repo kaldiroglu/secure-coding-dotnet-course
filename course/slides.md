@@ -101,7 +101,9 @@
 - Ties together Ch1/2/3/10/14.
 
 ## Coda — make habits automatic
-- `dotnet list package --vulnerable` in CI.
-- Roslyn security analyzers / Security Code Scan.
-- GitHub CodeQL.
+**Two orthogonal scanners — you need both:**
+- **SCA — are my *dependencies* vulnerable?** `dotnet list package --vulnerable` / Dependabot. Finds known-CVE packages (e.g. Log4Shell). Says nothing about your code.
+- **SAST — did *I* write a weakness?** Roslyn security analyzers / Security Code Scan / GitHub CodeQL. Finds injection, weak crypto, path traversal in *your* code.
+- **Live proof (run it):** on `src/Vulnerable`, the SCA scan is **clean** (deps are patched) while SAST lights up with SQLi, command injection, path traversal, etc. — the same project.
+- **The trap:** "no vulnerable dependencies" ≠ "secure code". A green SCA report says nothing about the bugs you wrote.
 - The one-page checklist: 15 principles, one per chapter.

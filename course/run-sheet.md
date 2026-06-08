@@ -56,4 +56,13 @@ Read the `// CWE-XXX` line → fire the exploit on Vulnerable → show the Fixed
 - **Ch4/Ch11 demos are POSIX/file-system specific** (macOS/Linux).
 
 ## Coda — make habits automatic
-Briefly show: `dotnet list package --vulnerable`, Roslyn security analyzers / Security Code Scan, and GitHub CodeQL — so the room leaves knowing how to catch these in CI, not just in their heads.
+Teach the room that there are **two orthogonal scanners and they need both**:
+- **SCA (dependencies):** `./scripts/check-vulnerable-packages.sh` (wraps `dotnet list package --vulnerable`) / Dependabot — finds known-CVE packages.
+- **SAST (your code):** Roslyn security analyzers / Security Code Scan / GitHub CodeQL — finds weaknesses you wrote.
+
+**Live demo (high impact — do it):** on the *same* `src/Vulnerable` project, run both back to back:
+```bash
+./scripts/check-vulnerable-packages.sh            # SCA  -> "No vulnerable packages." (deps are patched)
+dotnet build src/Vulnerable/Shop.Api 2>&1 | grep -E "warning (CA|SCS)"   # SAST -> SQLi, command injection, path traversal, weak crypto...
+```
+The point to land: **"No vulnerable dependencies" does NOT mean "secure code."** A clean SCA report says nothing about the bugs in your own code — that is the entire reason this course exists. (Optional reinforcement: temporarily pin a known-bad package, e.g. `Newtonsoft.Json 12.0.3`, re-run the SCA script, watch it go red and exit non-zero, then revert.)

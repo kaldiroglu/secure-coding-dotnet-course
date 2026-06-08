@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 #
-# Lists known-vulnerable NuGet packages (direct + transitive) for the solution.
-# Used in the course coda (Day 2) to demonstrate dependency scanning offline.
+# Software Composition Analysis (SCA): lists known-vulnerable NuGet packages
+# (direct + transitive) for the solution, by querying the advisory database.
 # Exits non-zero if any vulnerable package is found.
+#
+# SCOPE — read this before concluding "the repo is secure":
+#   This checks your DEPENDENCIES only. It does NOT look at the code we wrote.
+#   The deliberate weaknesses in src/Vulnerable (SQLi, path traversal, command
+#   injection, SSRF, weak crypto, ...) are OUR code, not packages — this script
+#   will (correctly) report "No vulnerable packages" while that code is full of
+#   holes. To find code weaknesses use the Static Application Security Testing
+#   (SAST) tools instead: the Roslyn security analyzers + Security Code Scan
+#   (run `dotnet build src/Vulnerable/Shop.Api` and read the CA*/SCS* warnings),
+#   and GitHub CodeQL (.github/workflows/codeql.yml). SCA and SAST are
+#   orthogonal: "no vulnerable dependencies" does NOT mean "secure code".
+#
+# Used in the course coda (Day 2) to demonstrate dependency scanning.
 #
 set -euo pipefail
 cd "$(dirname "$0")/.."
