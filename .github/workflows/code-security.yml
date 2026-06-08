@@ -1,0 +1,31 @@
+name: Code security (SAST)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1'   # Mondays 06:00 UTC
+
+# Static Application Security Testing gate. Complements:
+#   - codeql.yml            (deeper SAST; publishes alerts but does not fail the build)
+#   - dependency-security.yml (SCA — vulnerable NuGet packages)
+# This job runs the Roslyn + Security Code Scan analyzers and FAILS the build if any
+# security finding appears in a project that must stay clean (Fixed). The deliberately
+# vulnerable demo project is allowed to light up — see scripts/check-code-security.sh.
+jobs:
+  analyzers:
+    name: Security analyzers gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run SAST gate (analyzers; Fixed must stay clean)
+        run: bash scripts/check-code-security.sh
