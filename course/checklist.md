@@ -16,5 +16,6 @@ One line per principle. Pin it above your monitor.
 12. **Errors reveal nothing useful to an attacker.** Generic `ProblemDetails` to the caller; details to the log only.
 13. **Treat logs as untrusted readers — never log secrets.** No passwords, tokens, PII, or full request bodies.
 14. **(Bonus) Neutralize newlines/control chars before logging untrusted data.** Strip CR/LF so input can't forge log entries (CWE-117).
+15. **Validate at the boundary; canonicalize before you check.** Constrain shape (DataAnnotations), enforce cross-field/business rules (FluentValidation), and `Normalize(FormKC)` + strip control chars on free-form text *before* validating. "Parses as the type" ≠ "acceptable input" (CWE-20).
 
 *For further enquiry please contact Akin Kaldiroglu at akin@kaldiroglu.dev*

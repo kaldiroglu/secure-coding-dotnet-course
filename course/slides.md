@@ -93,6 +93,13 @@
 - Principle: **Neutralize newlines/control characters before writing untrusted data to a log.**
 - Meta: surfaced by CodeQL after publishing — a weakness the core 13 missed.
 
+## Ch15 (Cross-cutting) — CWE-20 Input Validation & Sanitization
+- Bug: checkout trusts `quantity`/`unitPrice`/`note` — negative quantity = negative total.
+- Fix: DataAnnotations (shape) + FluentValidation (cross-field/business) + normalize→sanitize (free text).
+- Order: **normalize → sanitize → validate** (never validate before canonicalizing).
+- Principle: **"Parses as the type" is not "acceptable input." Validate at the boundary.**
+- Ties together Ch1/2/3/10/14.
+
 ## Coda — make habits automatic
 - `dotnet list package --vulnerable` in CI.
 - Roslyn security analyzers / Security Code Scan.

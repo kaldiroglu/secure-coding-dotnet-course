@@ -82,6 +82,19 @@ curl -s -X POST "$V/session/login" -H 'Content-Type: application/json' -d '{"use
 # then show the password in the Vulnerable app's console log
 ```
 
+## Cross-cutting
+**Ch15 — CWE-20 input validation & sanitization**
+```bash
+# Exploit: negative quantity -> negative total (the store owes the attacker)
+curl -s -X POST "$V/checkout" -H 'Content-Type: application/json' \
+  -d '{"productId":1,"quantity":-5,"unitPrice":0.01,"note":"x"}'        # vuln: total < 0
+curl -s -o /dev/null -w '%{http_code}\n' -X POST "$F/checkout" -H 'Content-Type: application/json' \
+  -d '{"productId":1,"quantity":-5,"unitPrice":0.01,"note":"x"}'        # fixed: 400
+# Sanitization: full-width A + CRLF in the note
+curl -s -X POST "$F/checkout" -H 'Content-Type: application/json' \
+  -d '{"productId":1,"quantity":2,"unitPrice":10,"note":"Ａ\r\n  hi  there  "}'  # fixed: note -> "A hi there"
+```
+
 ## Bonus
 **Ch14 — CWE-117 log forging** (the `\n` in the JSON value becomes a real newline)
 ```bash

@@ -37,6 +37,11 @@ Each app runs on its own isolated in-memory SQLite connection per test (see
 |------------|----------|---------|
 | `LogForgingTests` | CWE-117 | newline-forged log entry (vuln) / CR-LF neutralized (fixed) |
 
+## Inventory (Cross-cutting)
+| Test class | Weakness | Asserts |
+|------------|----------|---------|
+| `InputValidationTests` | CWE-20 | negative quantity → negative total (vuln) / 400 (fixed); over-cap order → 400 (fixed, FluentValidation); free-form note echoed raw (vuln) / NFKC-folded, control-stripped, whitespace-collapsed (fixed) |
+
 ## Run it with
 ```bash
 dotnet test

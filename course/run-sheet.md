@@ -4,7 +4,7 @@
 
 ## Before the room opens (setup)
 1. Install the .NET 8 SDK (repo pins 8.0.x via `global.json`). Verify: `dotnet --version` → 8.0.x.
-2. From the repo root: `dotnet build SecureCoding.NetBackend.sln` then `dotnet test` → expect **32 passing**.
+2. From the repo root: `dotnet build SecureCoding.NetBackend.sln` then `dotnet test` → expect **39 passing**.
 3. Open the solution with the `Vulnerable` and `Fixed` projects side-by-side in the editor.
 4. Two terminals, apps on pinned ports (no launch profile):
    - `ASPNETCORE_URLS=http://127.0.0.1:5101 dotnet run --project src/Vulnerable/Shop.Api --no-launch-profile`
@@ -21,7 +21,7 @@ Read the `// CWE-XXX` line → fire the exploit on Vulnerable → show the Fixed
 | 09:00 | Ch 0 — Orientation: secure coding vs appsec, the CWE spine, tour of the vuln app |
 | 09:30 | Ch 1 — CWE-89 SQL injection |
 | 10:25 | break |
-| 10:40 | Ch 2 — CWE-915/20 mass assignment & validation |
+| 10:40 | Ch 2 — CWE-915/20 mass assignment & validation *(Ch 15 / CWE-20 input-validation is the natural deep-dive here if time allows; otherwise self-study)* |
 | 11:30 | Ch 3 — CWE-22 path traversal |
 | 12:20 | lunch |
 | 13:20 | Ch 4 — CWE-78 OS command injection |
