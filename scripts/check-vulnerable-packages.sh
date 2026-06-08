@@ -10,10 +10,10 @@
 #   injection, SSRF, weak crypto, ...) are OUR code, not packages — this script
 #   will (correctly) report "No vulnerable packages" while that code is full of
 #   holes. To find code weaknesses use the Static Application Security Testing
-#   (SAST) tools instead: the Roslyn security analyzers + Security Code Scan
-#   (run `dotnet build src/Vulnerable/Shop.Api` and read the CA*/SCS* warnings),
-#   and GitHub CodeQL (.github/workflows/codeql.yml). SCA and SAST are
-#   orthogonal: "no vulnerable dependencies" does NOT mean "secure code".
+#   (SAST) tools instead: scripts/check-code-security.sh (the Roslyn security
+#   analyzers + Security Code Scan), and GitHub CodeQL (.github/workflows/codeql.yml).
+#   SCA and SAST are orthogonal: "no vulnerable dependencies" does NOT mean
+#   "secure code".
 #
 # Used in the course coda (Day 2) to demonstrate dependency scanning.
 #

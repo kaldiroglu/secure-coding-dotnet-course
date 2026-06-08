@@ -60,9 +60,13 @@ Teach the room that there are **two orthogonal scanners and they need both**:
 - **SCA (dependencies):** `./scripts/check-vulnerable-packages.sh` (wraps `dotnet list package --vulnerable`) / Dependabot — finds known-CVE packages.
 - **SAST (your code):** Roslyn security analyzers / Security Code Scan / GitHub CodeQL — finds weaknesses you wrote.
 
-**Live demo (high impact — do it):** on the *same* `src/Vulnerable` project, run both back to back:
+**Live demo (high impact — do it):** run the two scanner scripts back to back:
 ```bash
-./scripts/check-vulnerable-packages.sh            # SCA  -> "No vulnerable packages." (deps are patched)
-dotnet build src/Vulnerable/Shop.Api 2>&1 | grep -E "warning (CA|SCS)"   # SAST -> SQLi, command injection, path traversal, weak crypto...
+./scripts/check-vulnerable-packages.sh   # SCA  -> "No vulnerable packages." (deps are patched) -> exit 0
+./scripts/check-code-security.sh         # SAST -> Vulnerable lights up (SQLi, command injection, weak crypto...); Fixed clean
 ```
-The point to land: **"No vulnerable dependencies" does NOT mean "secure code."** A clean SCA report says nothing about the bugs in your own code — that is the entire reason this course exists. (Optional reinforcement: temporarily pin a known-bad package, e.g. `Newtonsoft.Json 12.0.3`, re-run the SCA script, watch it go red and exit non-zero, then revert.)
+The point to land: **"No vulnerable dependencies" does NOT mean "secure code."** The SCA scan is green while the SAST scan finds dozens of weaknesses in the *same* code we wrote — a clean SCA report says nothing about your own bugs, which is the entire reason this course exists. The SAST script encodes the repo's policy too: `Vulnerable` is allowed to light up (the demo), but `Fixed` must stay clean or the gate fails.
+
+Optional reinforcement — show each gate *has teeth*:
+- SCA: temporarily pin a known-bad package (e.g. `Newtonsoft.Json 12.0.3`), re-run the SCA script, watch it go red and exit non-zero, then revert.
+- SAST: temporarily drop an insecure call (e.g. `new Random()`) into a `Fixed` controller, re-run the SAST script, watch the gate fail on `Fixed`, then revert.
