@@ -34,4 +34,39 @@ public class InputValidationTests
         var view = await resp.Content.ReadFromJsonAsync<OrderView>();
         Assert.Equal(DirtyNote, view!.Note);   // raw: newline + full-width char survive untouched
     }
+
+    [Fact]
+    public async Task Fixed_rejects_negative_quantity()
+    {
+        using var factory = new FixedFactory();
+        var client = factory.CreateClient();
+        var resp = await client.PostAsJsonAsync("/checkout",
+            new { productId = 1, quantity = -5, unitPrice = 0.01m, note = "x" });
+        Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);   // DataAnnotations [Range]
+    }
+
+    [Fact]
+    public async Task Fixed_rejects_over_cap_order()
+    {
+        using var factory = new FixedFactory();
+        var client = factory.CreateClient();
+        // Every field is individually valid (qty<=100, price<=100000) but the product
+        // 100 * 100000 = 10,000,000 blows the per-order cap -> only FluentValidation catches it.
+        var resp = await client.PostAsJsonAsync("/checkout",
+            new { productId = 1, quantity = 100, unitPrice = 100000m, note = "x" });
+        Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);   // FluentValidation cross-field
+    }
+
+    [Fact]
+    public async Task Fixed_normalizes_and_sanitizes_note()
+    {
+        using var factory = new FixedFactory();
+        var client = factory.CreateClient();
+        var resp = await client.PostAsJsonAsync("/checkout",
+            new { productId = 1, quantity = 2, unitPrice = 10m, note = DirtyNote });
+        resp.EnsureSuccessStatusCode();
+        var view = await resp.Content.ReadFromJsonAsync<OrderView>();
+        // NFKC folds full-width "A" -> "A"; control chars stripped; whitespace collapsed.
+        Assert.Equal("A hi there", view!.Note);
+    }
 }
