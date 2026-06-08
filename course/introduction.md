@@ -41,9 +41,10 @@ By the end you will be able to:
 - **One app, two twins.** A small storefront Web API exists in two forms — `Vulnerable`
   and `Fixed` — with identical routes. Each lesson is the diff between them, proven by a
   test that exploits the vulnerable side and confirms the fix blocks it.
-- **Two days, 13 chapters.** Day 1: injection, untrusted input, access control, output.
-  Day 2: crypto, secrets, SSRF, deserialization, error & log hygiene. Full timetable in
-  `run-sheet.md`.
+- **Two days, 13 core chapters** (plus a CWE-117 log-forging bonus and a CWE-20
+  input-validation cross-cutting chapter). Day 1: injection, untrusted input, access
+  control, output. Day 2: crypto, secrets, SSRF, deserialization, error & log hygiene.
+  Full timetable in `run-sheet.md`.
 
 ## How to use these materials
 | File | Purpose |
@@ -53,12 +54,12 @@ By the end you will be able to:
 | `chapters/NN-*.md` | Per-chapter speaker notes: demo script, mechanism, fix, principle, Q&A |
 | `cheat-sheet.md` | Copy-paste `curl` exploits per chapter |
 | `slides.md` | Minimal slide outline (the code is the real slide) |
-| `checklist.md` | One-page takeaway: the 13 principles |
+| `checklist.md` | One-page takeaway: the 15 principles |
 
 ## Prerequisites
 The .NET 8 SDK (the repo pins 8.0.x via `global.json`). Build with
 `dotnet build SecureCoding.NetBackend.sln` and confirm the suite is green with
-`dotnet test` (expect 32 passing). Setup details are in `run-sheet.md`.
+`dotnet test` (expect 39 passing). Setup details are in `run-sheet.md`.
 
 ## A few honest caveats
 - The demo uses **SQLite** (zero classroom setup); the lessons are provider-agnostic.

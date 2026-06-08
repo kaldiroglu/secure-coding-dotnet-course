@@ -15,7 +15,7 @@ are *expected and intended*. Put any remediation in `Fixed/`.
 ## Setup
 - .NET 8 SDK (pinned via `global.json`; check with `dotnet --version` → `8.0.x`).
 - `dotnet build SecureCoding.NetBackend.sln`
-- `dotnet test` → all green (currently 34 tests).
+- `dotnet test` → all green (currently 39 tests).
 - To play with the live exploits, run both apps on pinned ports and use
   [course/cheat-sheet.md](course/cheat-sheet.md):
   ```bash

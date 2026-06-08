@@ -104,4 +104,4 @@
 - `dotnet list package --vulnerable` in CI.
 - Roslyn security analyzers / Security Code Scan.
 - GitHub CodeQL.
-- The one-page checklist: 13 principles, one per chapter.
+- The one-page checklist: 15 principles, one per chapter.
