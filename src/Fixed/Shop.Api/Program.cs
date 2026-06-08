@@ -1,9 +1,12 @@
 using dev.kaldiroglu.SecureCoding.Shop.Fixed.Data;
+using dev.kaldiroglu.SecureCoding.Shop.Fixed.Validation;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IValidator<CheckoutDto>, CheckoutValidator>();
 builder.Services.AddDataProtection();
 builder.Services.AddDbContext<ShopDbContext>(o => o.UseSqlite("Data Source=shop-fixed.db"));
 
