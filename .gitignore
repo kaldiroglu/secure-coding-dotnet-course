@@ -6,3 +6,6 @@ obj/
 .vs/
 *.user
 Session.md
+
+# Semgrep scan artifacts (regenerable; see scripts / course coda)
+semgrep_report.*
